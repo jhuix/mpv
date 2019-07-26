@@ -1033,16 +1033,22 @@ void write_video(struct MPContext *mpctx)
         if (mpctx->video_status == STATUS_DRAINING &&
             vo_is_ready_for_frame(vo, -1))
         {
+            MP_DBG(mpctx, "video EOF (time_frame=%I64d)\n",
+                   (int64_t)(mpctx->time_frame * 1000000));
             mpctx->time_frame -= get_relative_time(mpctx);
             mp_set_timeout(mpctx, mpctx->time_frame);
+            MP_DBG(mpctx, "video EOF (time_frame=%I64d)\n",
+                   (int64_t)(mpctx->time_frame * 1000000));
             if (mpctx->time_frame <= 0) {
                 MP_VERBOSE(mpctx, "video EOF reached\n");
                 mpctx->video_status = STATUS_EOF;
                 encode_lavc_stream_eof(mpctx->encode_lavc_ctx, STREAM_VIDEO);
+            } else if (mpctx->time_frame <= 0.02) {
+                mp_wakeup_core(mpctx);
             }
         }
-
-        MP_DBG(mpctx, "video EOF (status=%d)\n", mpctx->video_status);
+        MP_DBG(mpctx, "video EOF (status=%d time_frame=%I64d)\n",
+               mpctx->video_status, (int64_t)(mpctx->time_frame * 1000000));
         return;
     }
 
