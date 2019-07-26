@@ -128,6 +128,16 @@ void mp_get_src_dst_rects(struct mp_log *log, struct mp_vo_opts *opts,
         MPSWAP(int, src_w, src_h);
         MPSWAP(int, src_dw, src_dh);
     }
+    // Additional function of "no-keepaspect-window" parameter,
+    // Scale to the whole window while keeping aspect ratio.
+    if (opts->keepaspect && !opts->keepaspect_window) {
+        double wscale = (double)window_w / (double)src_dw;
+        double hscale = (double)window_h / (double)src_dh;
+        if (wscale > hscale)
+            window_h = src_dh * wscale;
+        else if (wscale < hscale)
+            window_w = src_dw * hscale;
+    }
     window_w = MPMAX(1, window_w);
     window_h = MPMAX(1, window_h);
     struct mp_rect dst = {0, 0, window_w, window_h};
