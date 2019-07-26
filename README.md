@@ -25,6 +25,7 @@
 * [Wiki](https://github.com/mpv-player/mpv/wiki)
 * [FAQ](https://github.com/mpv-player/mpv/wiki/FAQ)
 * [Manual](http://mpv.io/manual/master/)
+* [Visual Studio Build](https://github.com/jhuix/mpv-vsbuild)
 
 
 ## Overview
@@ -245,3 +246,4 @@ only if discretion is required.
 [api-changes]: https://github.com/mpv-player/mpv/blob/master/DOCS/client-api-changes.rst
 [restore-old-bindings]: https://github.com/mpv-player/mpv/blob/master/etc/restore-old-bindings.conf
 [contribute.md]: https://github.com/mpv-player/mpv/blob/master/DOCS/contribute.md
+[mpv-vsbuild](https://github.com/jhuix/mpv-vsbuild)
